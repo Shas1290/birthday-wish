@@ -1,0 +1,357 @@
+/* ==========================================================================
+   Finale / Closing Section Styles
+   ========================================================================== */
+
+/* Main Section Container */
+.finale-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 3rem 1.5rem;
+  
+  /* Animated slow-shifting gradient background */
+  background: linear-gradient(-45deg, #2D1B2E, #1a0a1e, #3D1B3E, #230d25, #2D1B2E);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+}
+
+.finale-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(115deg, transparent 0 46%, rgba(255, 255, 255, 0.045) 47% 48%, transparent 49% 100%),
+    radial-gradient(circle at 1px 1px, rgba(255, 209, 220, 0.14) 1px, transparent 0);
+  background-size: 170px 170px, 36px 36px;
+}
+
+/* Gradient Shift Keyframes */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Floating Hearts Container */
+.finale-hearts-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Individual Floating Heart */
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  user-select: none;
+  will-change: transform, opacity;
+  animation-name: floatHeartUp;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 157, 0.4));
+}
+
+@keyframes floatHeartUp {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(25px) rotate(15deg) scale(1.05);
+  }
+  75% {
+    transform: translateY(-75vh) translateX(-20px) rotate(-10deg) scale(1);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(15px) rotate(12deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Ambient Radial Glow */
+.finale-ambient-glow {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.16) 0%, rgba(201, 169, 110, 0.08) 45%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  filter: blur(40px);
+}
+
+/* Main Content Wrapper */
+.finale-content {
+  position: relative;
+  z-index: 3;
+  max-width: 780px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Badge at top of section */
+.finale-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.25rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 107, 157, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFD1DC;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-sparkle {
+  display: inline-block;
+  animation: pulseSparkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseSparkle {
+  from {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Heading */
+.finale-heading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  margin: 0 0 1.75rem 0;
+  text-shadow: 0 0 20px rgba(255, 107, 157, 0.65), 0 0 45px rgba(255, 107, 157, 0.35);
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+/* Closing Message Text */
+.finale-message {
+  font-size: 1.18rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+  margin: 0 auto 2.75rem auto;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+/* Actions Area */
+.finale-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+}
+
+/* Replay Button */
+.finale-replay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #FF6B9D 0%, #C9A96E 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 6px 25px rgba(255, 107, 157, 0.45), 0 0 16px rgba(201, 169, 110, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 52px;
+}
+
+.finale-replay-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 32px rgba(255, 107, 157, 0.6), 0 0 24px rgba(201, 169, 110, 0.5);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.finale-replay-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 18px rgba(255, 107, 157, 0.4);
+}
+
+.replay-icon {
+  font-size: 1.25rem;
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.finale-replay-btn:hover .replay-icon {
+  transform: rotate(-180deg);
+}
+
+/* Footer & Signature */
+.finale-footer {
+  margin-top: auto;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
+}
+
+.finale-signature {
+  font-size: 0.9rem;
+  color: #C9A96E;
+  letter-spacing: 0.06em;
+  margin: 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.signature-heart {
+  display: inline-block;
+  color: #FF6B9D;
+  animation: heartPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* IntersectionObserver Visible State Trigger */
+.finale-section.is-visible .finale-badge,
+.finale-section.is-visible .finale-heading,
+.finale-section.is-visible .finale-message,
+.finale-section.is-visible .finale-actions,
+.finale-section.is-visible .finale-footer {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   Mobile & Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .finale-section {
+    padding: 3rem 1.25rem 2.5rem 1.25rem;
+  }
+
+  .finale-heading {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .finale-message {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    margin-bottom: 2.25rem;
+  }
+
+  .finale-actions {
+    margin-bottom: 2.5rem;
+  }
+
+  .finale-replay-btn {
+    padding: 0.9rem 1.85rem;
+    font-size: 0.98rem;
+  }
+
+  /* Show fewer floating hearts on smaller screens for performance & clarity */
+  .floating-heart:nth-child(even) {
+    display: none;
+  }
+
+  .finale-ambient-glow {
+    width: 380px;
+    height: 380px;
+  }
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .finale-section {
+    animation: none !important;
+  }
+
+  .floating-heart {
+    animation: none !important;
+    display: none !important;
+  }
+
+  .badge-sparkle,
+  .signature-heart {
+    animation: none !important;
+  }
+
+  .finale-badge,
+  .finale-heading,
+  .finale-message,
+  .finale-actions,
+  .finale-footer {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .finale-replay-btn {
+    transition: none !important;
+  }
+}

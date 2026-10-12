@@ -1,0 +1,510 @@
+/* ============================================================
+   CELEBRATION SECTION STYLING & ANIMATIONS
+   ============================================================ */
+
+.celebration-container {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, #FFF9FB 0%, #FFE8EE 56%, #FFF5F7 100%),
+    radial-gradient(circle at 1px 1px, rgba(201, 169, 110, 0.15) 1px, transparent 0);
+  background-size: auto, 30px 30px;
+  color: #4A2040;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 3rem 1.5rem;
+}
+
+.celebration-container::before {
+  content: '';
+  position: absolute;
+  inset: 1.1rem;
+  z-index: 1;
+  border: 1px solid rgba(201, 169, 110, 0.24);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   Ambient Background Glows
+   ------------------------------------------------------------ */
+.celebration-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  z-index: 1;
+}
+
+.celebration-glow-1 {
+  width: 320px;
+  height: 320px;
+  background: rgba(255, 107, 157, 0.28);
+  top: 10%;
+  left: 15%;
+  animation: glowFloat1 8s ease-in-out infinite alternate;
+}
+
+.celebration-glow-2 {
+  width: 380px;
+  height: 380px;
+  background: rgba(201, 169, 110, 0.22);
+  bottom: 8%;
+  right: 12%;
+  animation: glowFloat2 10s ease-in-out infinite alternate;
+}
+
+@keyframes glowFloat1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 40px) scale(1.15); }
+}
+
+@keyframes glowFloat2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-40px, -30px) scale(1.12); }
+}
+
+/* ------------------------------------------------------------
+   Floating Confetti Particles
+   ------------------------------------------------------------ */
+.celebration-confetti-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.celebration-confetti-item {
+  position: absolute;
+  top: -20px;
+  opacity: 0.85;
+  animation-name: confettiFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.celebration-confetti-item.is-circle {
+  border-radius: 50%;
+}
+
+.celebration-confetti-item.is-rect {
+  border-radius: 2px;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) translateX(25px);
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) translateX(-20px);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   Floating Balloons
+   ------------------------------------------------------------ */
+.celebration-balloons-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.celebration-balloon-track {
+  position: absolute;
+  bottom: -160px;
+  cursor: pointer;
+  pointer-events: auto;
+  animation-name: balloonAscend;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.celebration-balloon-track.is-popped {
+  transform: scale(1.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+}
+
+.celebration-balloon-sway {
+  animation-name: balloonSway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  transform-origin: bottom center;
+}
+
+.celebration-balloon-body {
+  position: relative;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  filter: drop-shadow(0 8px 16px rgba(255, 107, 157, 0.25));
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.celebration-balloon-track:hover .celebration-balloon-body {
+  transform: scale(1.08);
+}
+
+/* Gloss highlight */
+.celebration-balloon-shine {
+  position: absolute;
+  top: 14%;
+  left: 20%;
+  width: 22%;
+  height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 75%);
+  transform: rotate(-30deg);
+}
+
+/* Balloon knot */
+.celebration-balloon-knot {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #FF6B9D;
+}
+
+/* Balloon string */
+.celebration-balloon-string {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 1.5px;
+  height: 80px;
+  background: rgba(139, 96, 128, 0.45);
+  transform-origin: top center;
+  animation: stringWave 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes balloonAscend {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.95;
+  }
+  90% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(calc(-100vh - 220px));
+    opacity: 0;
+  }
+}
+
+@keyframes balloonSway {
+  0% {
+    transform: rotate(-7deg) translateX(-12px);
+  }
+  100% {
+    transform: rotate(7deg) translateX(12px);
+  }
+}
+
+@keyframes stringWave {
+  0% {
+    transform: skewX(-4deg) rotate(-2deg);
+  }
+  100% {
+    transform: skewX(4deg) rotate(2deg);
+  }
+}
+
+/* ------------------------------------------------------------
+   Main Content Layout & Typography
+   ------------------------------------------------------------ */
+.celebration-content {
+  position: relative;
+  z-index: 5;
+  max-width: 760px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: celebrationFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.celebration-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  animation: celebrationFadeUp 1s ease-out 0.2s both;
+}
+
+.celebration-sparkle {
+  font-size: 1.5rem;
+  display: inline-block;
+  animation: sparklePulse 2s ease-in-out infinite alternate;
+}
+
+.celebration-sparkle-left {
+  animation-delay: 0s;
+}
+
+.celebration-sparkle-right {
+  animation-delay: 1s;
+}
+
+@keyframes sparklePulse {
+  0% {
+    transform: scale(0.9) rotate(-10deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.25) rotate(10deg);
+    opacity: 1;
+  }
+}
+
+.celebration-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Playfair Display", Georgia, serif;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #4A2040;
+  margin: 0;
+  text-shadow: 0 2px 14px rgba(255, 107, 157, 0.4);
+}
+
+.celebration-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Playfair Display", Georgia, serif;
+  font-size: 5.1rem;
+  font-weight: 900;
+  margin: 0.2rem 0 0.8rem 0;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #FF6B9D 15%, #C9A96E 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 18px rgba(255, 107, 157, 0.32));
+  letter-spacing: 0;
+  animation: celebrationFadeUp 1.2s ease-out 0.35s both;
+}
+
+.celebration-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.34rem;
+  font-weight: 500;
+  color: #8B6080;
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.05em;
+  animation: celebrationFadeUp 1.2s ease-out 0.5s both;
+}
+
+/* ------------------------------------------------------------
+   Glassmorphism Message Card
+   ------------------------------------------------------------ */
+.celebration-card {
+  position: relative;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 249, 251, 0.78)),
+    radial-gradient(circle at 1px 1px, rgba(201, 169, 110, 0.16) 1px, transparent 0);
+  background-size: auto, 24px 24px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  padding: 2.25rem 2.5rem;
+  box-shadow: 
+    0 12px 35px rgba(74, 32, 64, 0.08),
+    0 4px 15px rgba(255, 107, 157, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  max-width: 620px;
+  width: 100%;
+  box-sizing: border-box;
+  animation: celebrationCardPop 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.65s both;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.celebration-card::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.celebration-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 18px 45px rgba(74, 32, 64, 0.11),
+    0 6px 20px rgba(255, 107, 157, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.celebration-card-decor-top {
+  font-size: 1.35rem;
+  letter-spacing: 0.35rem;
+  margin-bottom: 1rem;
+  opacity: 0.88;
+}
+
+.celebration-message {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Georgia", serif;
+  font-size: 1.14rem;
+  line-height: 1.75;
+  color: #4A2040;
+  margin: 0;
+  text-align: center;
+  font-weight: 450;
+}
+
+.celebration-card-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed rgba(201, 169, 110, 0.35);
+  display: flex;
+  justify-content: center;
+}
+
+.celebration-ribbon {
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #C9A96E;
+  background: rgba(255, 240, 243, 0.8);
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 169, 110, 0.25);
+}
+
+/* ------------------------------------------------------------
+   Entry Animations
+   ------------------------------------------------------------ */
+@keyframes celebrationFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes celebrationCardPop {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ------------------------------------------------------------
+   Mobile Responsiveness
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .celebration-container {
+    padding: 2.5rem 1rem;
+  }
+
+  .celebration-title {
+    letter-spacing: 0.22em;
+    font-size: 1.28rem;
+  }
+
+  .celebration-name {
+    font-size: 3rem;
+  }
+
+  .celebration-subtitle {
+    font-size: 1.04rem;
+  }
+
+  .celebration-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 18px;
+    margin: 0 0.5rem;
+  }
+
+  /* Reduce density of balloons and confetti on smaller screens */
+  .celebration-balloon-track:nth-child(even) {
+    display: none;
+  }
+
+  .celebration-confetti-item:nth-child(3n) {
+    display: none;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .celebration-title {
+    font-size: 1.7rem;
+  }
+
+  .celebration-name {
+    font-size: 4.2rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   Accessibility: Prefers-Reduced-Motion
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .celebration-content,
+  .celebration-badge-wrap,
+  .celebration-name,
+  .celebration-subtitle,
+  .celebration-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .celebration-glow-1,
+  .celebration-glow-2,
+  .celebration-sparkle,
+  .celebration-balloon-string {
+    animation: none !important;
+  }
+
+  .celebration-balloon-track {
+    animation-duration: 28s !important;
+  }
+
+  .celebration-balloon-sway {
+    animation: none !important;
+  }
+
+  .celebration-confetti-item {
+    animation-duration: 18s !important;
+  }
+}

@@ -1,0 +1,771 @@
+/* ═══════════════════════════════════════════════════════════════
+   SURPRISE / GIFT SECTION STYLES
+   Interactive 3D gift box, confetti burst, and luxury reveal card
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --color-gift-pink: #FF6B9D;
+  --color-gift-gold: #C9A96E;
+  --color-ribbon: #8C1D48;
+  --color-ribbon-shine: #B52B62;
+  --color-plum-text: #4A2040;
+  --color-rose-gold-border: rgba(201, 169, 110, 0.85);
+  --color-dark-bg-top: #2D1B2E;
+  --color-dark-bg-bottom: #1a0a1e;
+}
+
+.surprise-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 5rem 1.5rem;
+  background:
+    linear-gradient(180deg, var(--color-dark-bg-top) 0%, var(--color-dark-bg-bottom) 100%),
+    radial-gradient(circle at 1px 1px, rgba(255, 209, 220, 0.16) 1px, transparent 0);
+  background-size: auto, 32px 32px;
+  color: #FFFFFF;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.surprise-section::before {
+  content: '';
+  position: absolute;
+  inset: 1rem;
+  z-index: 1;
+  border: 1px solid rgba(255, 209, 220, 0.14);
+  pointer-events: none;
+}
+
+/* ── Ambient Background Sparkles ──────────────────────────────── */
+.surprise-ambient-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ambient-sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFF0F5 0%, #FF6B9D 60%, transparent 100%);
+  opacity: 0.6;
+  filter: drop-shadow(0 0 6px rgba(255, 107, 157, 0.8));
+  animation: ambientFloat linear infinite alternate;
+}
+
+@keyframes ambientFloat {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(-15px) scale(1.1);
+  }
+  100% {
+    transform: translateY(-30px) scale(0.7);
+    opacity: 0.3;
+  }
+}
+
+/* ── Main Layout Container ───────────────────────────────────── */
+.surprise-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.surprise-header-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-shadow: 0 2px 14px rgba(255, 107, 157, 0.5), 0 0 30px rgba(201, 169, 110, 0.3);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.5px;
+  line-height: 1.35;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.surprise-header-title.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+
+.surprise-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+/* ── 3D Gift Box Component ───────────────────────────────────── */
+.gift-box-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  perspective: 900px;
+  margin: 1.5rem auto 2.2rem;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+.gift-box-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.gift-box-wrapper:focus-visible {
+  outline: 3px solid #FF8FB5;
+  outline-offset: 8px;
+  border-radius: 12px;
+}
+
+/* Idle gentle float & wobble */
+.gift-box-wrapper.idle-bounce {
+  animation: boxFloatAndWobble 3.2s ease-in-out infinite;
+}
+
+@keyframes boxFloatAndWobble {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+/* Box Fade Out Stage */
+.gift-box-wrapper.box-fading {
+  animation: boxFadeDisappear 0.4s ease forwards;
+}
+
+@keyframes boxFadeDisappear {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4) translateY(20px);
+    pointer-events: none;
+  }
+}
+
+/* Gift Body */
+.gift-body {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, var(--color-gift-pink) 0%, var(--color-gift-gold) 100%);
+  border-radius: 12px;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(255, 107, 157, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Ribbons on the Box Body */
+.ribbon-vertical {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 26px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--color-ribbon-shine) 0%, var(--color-ribbon) 100%);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+}
+
+.ribbon-horizontal {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 26px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, var(--color-ribbon) 0%, var(--color-ribbon-shine) 50%, var(--color-ribbon) 100%);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+}
+
+.gift-shadow-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Ground shadow below the box */
+.gift-ground-shadow {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  width: 130px;
+  height: 16px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.48) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ── Gift Lid & Bow ─────────────────────────────────────────── */
+.gift-lid {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 166px;
+  height: 38px;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1.1);
+  z-index: 5;
+}
+
+.lid-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #FFA0C0 0%, var(--color-gift-pink) 40%, var(--color-gift-gold) 100%);
+  border-radius: 10px;
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    inset 0 2px 3px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.lid-ribbon-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 26px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--color-ribbon-shine) 0%, var(--color-ribbon) 100%);
+}
+
+.lid-ribbon-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 12px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, var(--color-ribbon) 0%, var(--color-ribbon-shine) 50%, var(--color-ribbon) 100%);
+}
+
+/* Lid opening animation */
+.gift-lid.lid-open {
+  transform: translateX(-50%) translateY(-25px) rotateX(-120deg) scale(1.04);
+}
+
+/* ── 3D Decorative Bow ───────────────────────────────────────── */
+.gift-bow {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.bow-knot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle, #E03572 0%, var(--color-ribbon) 100%);
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+  z-index: 3;
+}
+
+.bow-loop {
+  position: absolute;
+  top: 2px;
+  width: 30px;
+  height: 24px;
+  border: 4px solid var(--color-ribbon-shine);
+  background: radial-gradient(circle at 50% 50%, #FF8FB5 0%, var(--color-ribbon) 80%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.bow-left {
+  left: 6px;
+  border-radius: 50% 50% 15% 50%;
+  transform: rotate(-25deg);
+}
+
+.bow-right {
+  right: 6px;
+  border-radius: 50% 50% 50% 15%;
+  transform: rotate(25deg);
+}
+
+.bow-ribbon-tail {
+  position: absolute;
+  top: 14px;
+  width: 14px;
+  height: 24px;
+  background: linear-gradient(180deg, var(--color-ribbon-shine) 0%, var(--color-ribbon) 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  z-index: 1;
+}
+
+.tail-left {
+  left: 14px;
+  transform: rotate(-35deg);
+}
+
+.tail-right {
+  right: 14px;
+  transform: rotate(35deg);
+}
+
+/* ── Unwrap Button ───────────────────────────────────────────── */
+.surprise-button-wrapper {
+  margin-top: 1.5rem;
+  z-index: 3;
+}
+
+.surprise-unwrap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.95rem 2.2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #FF6B9D 0%, #C9A96E 100%);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow:
+    0 10px 25px rgba(255, 107, 157, 0.4),
+    0 0 15px rgba(201, 169, 110, 0.35);
+  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  user-select: none;
+  min-height: 52px;
+}
+
+.surprise-unwrap-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 14px 30px rgba(255, 107, 157, 0.55),
+    0 0 22px rgba(201, 169, 110, 0.5);
+}
+
+.surprise-unwrap-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-sparkle-icon {
+  font-size: 1.15rem;
+  display: inline-block;
+  animation: sparkleTwinkle 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes sparkleTwinkle {
+  0% { transform: scale(0.9) rotate(-10deg); opacity: 0.8; }
+  100% { transform: scale(1.2) rotate(15deg); opacity: 1; }
+}
+
+/* ── Confetti Burst ──────────────────────────────────────────── */
+.confetti-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.confetti-particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transform: translate(-50%, -50%) translate3d(0, 0, 0) rotate(var(--rot-start, 0deg));
+  animation: confettiExplode var(--duration, 1.8s) cubic-bezier(0.12, 0.85, 0.35, 1) forwards;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.confetti-particle.shape-circle {
+  border-radius: 50%;
+}
+
+.confetti-particle.shape-rect {
+  border-radius: 2px;
+}
+
+.confetti-particle.shape-strip {
+  border-radius: 1px;
+}
+
+@keyframes confettiExplode {
+  0% {
+    transform: translate(-50%, -50%) translate3d(0, 0, 0) rotate(var(--rot-start, 0deg)) scale(0.3);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) rotate(var(--rot-end, 360deg)) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* ── Reveal Message Card ─────────────────────────────────────── */
+.reveal-card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  z-index: 8;
+}
+
+.reveal-card-wrapper.animate-reveal {
+  animation: cardRevealPop 0.85s cubic-bezier(0.2, 0.85, 0.3, 1.15) forwards;
+}
+
+@keyframes cardRevealPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.75) translateY(30px);
+  }
+  60% {
+    transform: scale(1.02) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Magical Sparkles Around the Card */
+.card-sparkles {
+  position: absolute;
+  inset: -25px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.card-sparkle {
+  position: absolute;
+  font-size: 1.4rem;
+  animation: cardSparkleFloat 2.4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 157, 0.6));
+}
+
+.card-sparkle.sp-1 { top: -8px; left: 8%; animation-delay: 0s; }
+.card-sparkle.sp-2 { top: 15%; right: -12px; animation-delay: 0.6s; font-size: 1.6rem; }
+.card-sparkle.sp-3 { bottom: 20%; left: -14px; animation-delay: 1.2s; }
+.card-sparkle.sp-4 { bottom: -10px; right: 12%; animation-delay: 0.4s; font-size: 1.5rem; }
+.card-sparkle.sp-5 { top: 40%; right: 4%; animation-delay: 0.9s; }
+
+@keyframes cardSparkleFloat {
+  0% { transform: translateY(0) scale(0.9) rotate(-10deg); opacity: 0.7; }
+  100% { transform: translateY(-12px) scale(1.2) rotate(15deg); opacity: 1; }
+}
+
+/* Luxury Glassmorphism Card Body */
+.reveal-card {
+  position: relative;
+  padding: 3rem 2.5rem;
+  /* Frosted luminous glass with high contrast for dark plum text readability */
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 2px solid var(--color-rose-gold-border);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(255, 107, 157, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  text-align: center;
+  overflow: hidden;
+}
+
+.reveal-card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255, 107, 157, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.card-ornament {
+  margin-bottom: 0.75rem;
+}
+
+.ornament-heart {
+  display: inline-block;
+  font-size: 2.2rem;
+  animation: heartPulse 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 4px 10px rgba(255, 107, 157, 0.4));
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.reveal-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-gift-pink);
+  text-shadow: 0 2px 10px rgba(255, 107, 157, 0.28);
+  margin: 0 0 1rem;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+.reveal-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0.5rem auto 1.6rem;
+  width: 80%;
+  max-width: 260px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #C9A96E, transparent);
+}
+
+.divider-gem {
+  color: #C9A96E;
+  font-size: 0.95rem;
+}
+
+.reveal-message {
+  font-size: 1.18rem;
+  line-height: 1.85;
+  color: var(--color-plum-text);
+  font-weight: 500;
+  margin: 0 0 2rem;
+  letter-spacing: 0.2px;
+  word-break: break-word;
+}
+
+.reveal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rewrap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.6rem;
+  background: rgba(74, 32, 64, 0.08);
+  border: 1.5px solid rgba(201, 169, 110, 0.6);
+  border-radius: 9999px;
+  color: var(--color-plum-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.rewrap-btn:hover {
+  background: rgba(255, 107, 157, 0.15);
+  border-color: var(--color-gift-pink);
+  color: #C12A66;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.2);
+}
+
+.rewrap-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Mobile Responsive Styles ───────────────────────────────── */
+@media (max-width: 600px) {
+  .surprise-section {
+    padding: 3.5rem 1rem;
+    min-height: auto;
+  }
+
+  .surprise-header-title {
+    margin-bottom: 1.8rem;
+    font-size: 1.45rem;
+  }
+
+  .surprise-stage {
+    min-height: 320px;
+  }
+
+  /* Scale gift box down to 120px */
+  .gift-box-wrapper {
+    width: 120px;
+    height: 120px;
+    margin: 1.2rem auto 1.8rem;
+  }
+
+  .gift-body {
+    width: 120px;
+    height: 120px;
+  }
+
+  .ribbon-vertical {
+    width: 22px;
+  }
+
+  .ribbon-horizontal {
+    height: 22px;
+  }
+
+  .gift-lid {
+    width: 134px;
+    height: 32px;
+    top: -15px;
+  }
+
+  .lid-ribbon-v {
+    width: 22px;
+  }
+
+  .lid-ribbon-h {
+    height: 10px;
+  }
+
+  .gift-bow {
+    width: 58px;
+    height: 25px;
+    top: -20px;
+  }
+
+  .bow-knot {
+    width: 15px;
+    height: 15px;
+  }
+
+  .bow-loop {
+    width: 24px;
+    height: 20px;
+    border-width: 3px;
+  }
+
+  .bow-ribbon-tail {
+    width: 11px;
+    height: 18px;
+  }
+
+  .gift-ground-shadow {
+    width: 105px;
+    height: 13px;
+    bottom: -18px;
+  }
+
+  .surprise-unwrap-btn {
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+  }
+
+  .reveal-card {
+    padding: 2.2rem 1.3rem;
+    border-radius: 18px;
+    width: 100%;
+  }
+
+  .card-sparkles {
+    inset: -15px;
+  }
+
+  .card-sparkle {
+    font-size: 1.15rem;
+  }
+
+  .reveal-title {
+    font-size: 1.55rem;
+  }
+
+  .reveal-message {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.6rem;
+  }
+}
+
+/* ── Respect Prefers-Reduced-Motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .gift-box-wrapper.idle-bounce,
+  .ambient-sparkle,
+  .btn-sparkle-icon,
+  .card-sparkle,
+  .ornament-heart {
+    animation: none !important;
+  }
+
+  .gift-lid {
+    transition: none !important;
+  }
+
+  .gift-lid.lid-open {
+    transform: translateX(-50%) translateY(-25px) rotateX(-120deg);
+  }
+
+  .gift-box-wrapper.box-fading {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .reveal-card-wrapper.animate-reveal {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .confetti-particle {
+    animation: none !important;
+    display: none;
+  }
+}
